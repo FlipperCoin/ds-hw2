@@ -80,8 +80,8 @@ Set<T> UnionFind<T>::unionSets(Set<T> s1, Set<T> s2) {
     Set<T> big = s1Smaller ? s2 : s1;
 
     small.root->parent = big.root;
-    big.size += small.size;
-    big.value = unionValues(big.value, small.value);
+    big.root->size += small.size;
+    big.root->value = unionValues(big.value, small.value);
 
     sets--;
     return big;

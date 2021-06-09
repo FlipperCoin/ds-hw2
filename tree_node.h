@@ -108,7 +108,7 @@ struct TreeNode {
              DataType key2,
              DataType key3,
              TreeNode<DataType>* parent = nullptr);
-    TreeNode(DataType value, TreeNode<DataType>* parent = nullptr) : Value(value), Sons(0), Parent(parent), Rank(0) {
+    TreeNode(DataType value, TreeNode<DataType>* parent = nullptr) : Value(value), Sons(0), Parent(parent), Rank(1) {
     }
 
     /**

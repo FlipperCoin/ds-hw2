@@ -466,8 +466,8 @@ bool BTree23<DataType>::isEmpty() {
 
 template<typename DataType>
 BTree23<DataType>::BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2) {
-    int m1 = t1->root->Rank;
-    int m2 = t2->root->Rank;
+    int m1 = t1->root->isLeaf() ? 1 : t1->root->Rank;
+    int m2 = t2->root->isLeaf() ? 1 : t2->root->Rank;
 
     int m = m1+m2;
     Vector<SharedPointer<TreeNode<DataType>>> nodes(2*m);
@@ -484,8 +484,7 @@ BTree23<DataType>::BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2)
             nodes.add(SharedPointer<TreeNode<DataType>>(new TreeNode<DataType>(iter2->Value)));
             iter2 = iter2->Next;
         }
-
-        if (iter2 == nullptr || iter1->Value < iter2->Value) {
+        else if (iter2 == nullptr || iter1->Value < iter2->Value) {
             nodes.add(SharedPointer<TreeNode<DataType>>((new TreeNode<DataType>(iter1->Value))));
             iter1 = iter1->Next;
         }
@@ -517,13 +516,17 @@ BTree23<DataType>::BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2)
 
 template<typename DataType>
 SharedPointer<TreeNode<DataType>> BTree23<DataType>::findByRank(int i, SharedPointer<TreeNode<DataType>> current) const {
-    if()
-    if(current->Sons == 0){
+    if(current.isEmpty()) current = root;
 
+    if (root->isLeaf() && i > 0) return SharedPointer<TreeNode<DataType>>();
+
+    if(current->isLeaf()){
+        return current;
     }
+
     for (int j = 0; j < current->Sons; ++j) {
         if(i < current->Children[j]->Rank){
-            findByRank(i, current->Children[j]);
+            return findByRank(i, current->Children[j]);
         }
         else if( j != current->Sons-1){
             i -= current->Children[j]->Rank;
@@ -532,7 +535,6 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::findByRank(int i, SharedPoi
             return SharedPointer<TreeNode<DataType>>();
         }
     }
-
 }
 
 #endif //DS_EX1_TREE23_H

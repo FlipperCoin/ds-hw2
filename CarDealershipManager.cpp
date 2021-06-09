@@ -21,7 +21,7 @@ StatusType CarDealershipManager::SellCar(int agencyID, int typeID, int k) {
     }
 
     try {
-        Set<Agency> agency_set = agencies.find(typeID);
+        Set<Agency> agency_set = agencies.find(agencyID);
         if(agency_set.value == nullptr){
             return FAILURE;
         }
@@ -32,6 +32,11 @@ StatusType CarDealershipManager::SellCar(int agencyID, int typeID, int k) {
         SharedPointer<CarData> car_data = SharedPointer<CarData>(new CarData());
         car_data->typeID = typeID;
         SharedPointer<TreeNode<CarNode>> carNode = types_tree->find({.carData = car_data});
+
+        // if new type add to types tree
+        if (carNode.isEmpty()) {
+                carNode = types_tree->insert({.carData = car_data});
+        }
 
         // update car node and sells tree
         sells_tree->remove({.carData = carNode->Value.carData});
@@ -68,12 +73,26 @@ StatusType CarDealershipManager::UniteAgencies(int agencyID1, int agencyID2) {
 }
 
 StatusType CarDealershipManager::GetIthSoldType(int agencyID, int i, int *res) {
-    if (i < 0 || agencyID < 0 || res == NULL){
+    if (i < 0 || agencyID < 0 || res == nullptr){
         return INVALID_INPUT;
     }
-    Set<Agency> agency_set = agencies.find(agencyID);
-    if(agency_set.value == nullptr){
-        return FAILURE;
+
+    try {
+        Set<Agency> agency = agencies.find(agencyID);
+        if(agency.value == nullptr){
+            return FAILURE;
+        }
+
+        auto foundTreeNode = agency.value->sellsTree->findByRank(i);
+        if (foundTreeNode.isEmpty()) {
+            return FAILURE;
+        }
+
+        auto sellsNode = foundTreeNode->Value;
+        *res = sellsNode.carData->typeID;
+    }
+    catch (std::bad_alloc& e) {
+        return ALLOCATION_ERROR;
     }
 
     return SUCCESS;
