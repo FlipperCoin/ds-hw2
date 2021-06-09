@@ -14,7 +14,7 @@ template<typename T>
 class UnionFind {
 private:
     Vector<SharedPointer<SetNode<T>>> items;
-    int sets;
+    int sets = 0;
     SharedPointer<T> (*init)();
     SharedPointer<T> (*unionValues)(SharedPointer<T>, SharedPointer<T>);
 public:
