@@ -33,7 +33,7 @@ private:
     void printMidNode(const SharedPointer<TreeNode<DataType>> &node) const;
     void fix_insert(SharedPointer<TreeNode<DataType>> node);
     void fix_remove(SharedPointer<TreeNode<DataType>> node);
-    void createRow(Vector<SharedPointer<TreeNode<int>>> &nodes, int k, int r) const;
+    void createRow(Vector<SharedPointer<TreeNode<DataType>>> &nodes, int k, int r) const;
     static bool compare(const TreeNode<DataType>& node1, const TreeNode<DataType>& node2);
     void link(SharedPointer<TreeNode<DataType>> node);
 
@@ -407,14 +407,14 @@ template<typename DataType>
 BTree23<DataType>::BTree23(int n) {throw std::exception();}
 
 template<typename DataType>
-void BTree23<DataType>::createRow(Vector<SharedPointer<TreeNode<int>>> &nodes, int k, int r) const {
+void BTree23<DataType>::createRow(Vector<SharedPointer<TreeNode<DataType>>> &nodes, int k, int r) const {
     for (int i = r; i < r + k; i+=2) {
-        SharedPointer<TreeNode<int>> parent;
+        SharedPointer<TreeNode<DataType>> parent;
 
         // if only 3 left, add a parent to 3 sons
         if ((r+k - i) == 3) {
-            parent = SharedPointer<TreeNode<int>>(
-                    new TreeNode<int>(
+            parent = SharedPointer<TreeNode<DataType>>(
+                    new TreeNode<DataType>(
                             nodes[i],
                             nodes[i+1],
                             nodes[i+2],
@@ -431,8 +431,8 @@ void BTree23<DataType>::createRow(Vector<SharedPointer<TreeNode<int>>> &nodes, i
         }
             // add a parent with 2 sons
         else {
-            parent = SharedPointer<TreeNode<int>>(
-                    new TreeNode<int>(
+            parent = SharedPointer<TreeNode<DataType>>(
+                    new TreeNode<DataType>(
                             nodes[i],
                             nodes[i+1],
                             nodes[i+1]->Value
@@ -458,7 +458,53 @@ bool BTree23<DataType>::isEmpty() {
 
 template<typename DataType>
 BTree23<DataType>::BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2) {
+    int m1 = t1->root.Rank;
+    int m2 = t2->root.Rank;
 
+    int m = m1+m2;
+    Vector<SharedPointer<TreeNode<DataType>>> nodes(2*m);
+
+    auto iter1 = t1->child;
+    auto iter2 = t2->child;
+
+    for (int i = 0; i < m; i++) {
+        if (iter1.isEmpty()) {
+            if (iter2.isEmpty()) {
+                break;
+            }
+
+            nodes.add(new TreeNode<DataType>(iter2->Value));
+            iter2 = iter2->Next;
+        }
+
+        if (iter2.isEmpty() || iter1->Value < iter2->Value) {
+            nodes.add(new TreeNode<DataType>(iter1->Value));
+            iter1 = iter1->Next;
+        }
+        else {
+            nodes.add(new TreeNode<DataType>(iter2->Value));
+            iter2 = iter2->Next;
+        }
+
+        if (i != 0) {
+            nodes[i-1]->Next = nodes[i].rawPointer();
+            nodes[i]->Previous = nodes[i-1].rawPointer();
+        }
+    }
+
+    child = nodes[0];
+
+    // loop row by row, from the bottom up
+    // each time creating the row's parents and linking them
+    int k = m;
+    int r = 0;
+    while (r+k - r > 1) {
+        createRow(nodes, k, r);
+        r += k;
+        k /= 2; // rounding down is a wanted behaviour, in case of 3 sons in the end
+    }
+
+    root = nodes[r];
 }
 
 #endif //DS_EX1_TREE23_H

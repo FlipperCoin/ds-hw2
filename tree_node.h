@@ -40,7 +40,7 @@ struct TreeNode {
     Vector<SharedPointer<TreeNode<DataType>>> Children = Vector<SharedPointer<TreeNode<DataType>>>(4);
 
     /**
-     * This field has to purposes, depending if this node is a leaf or not.
+     * This field has two purposes, depending if this node is a leaf or not.
      * If its a leaf then this is it's value.
      * Otherwise, this is the value of the smallest leaf under this node (used for key transfers)
      */
@@ -108,7 +108,7 @@ struct TreeNode {
              DataType key2,
              DataType key3,
              TreeNode<DataType>* parent = nullptr);
-    TreeNode(DataType value, TreeNode<DataType>* parent = nullptr) : Value(value), Sons(0), Parent(parent) {
+    TreeNode(DataType value, TreeNode<DataType>* parent = nullptr) : Value(value), Sons(0), Parent(parent), Rank(0) {
     }
 
     /**
@@ -421,6 +421,7 @@ TreeNode<DataType>::TreeNode(SharedPointer<TreeNode<DataType>> small, SharedPoin
     Value = small->Value;
     small->Parent = this;
     big->Parent = this;
+    Rank = small->Rank + big->Rank;
 }
 
 template<typename DataType>
@@ -436,6 +437,7 @@ TreeNode<DataType>::TreeNode(SharedPointer<TreeNode<DataType>> small, SharedPoin
     small->Parent = this;
     middle->Parent = this;
     big->Parent = this;
+    Rank = small->Rank + middle->Rank + big->Rank;
 }
 
 template<typename DataType>
@@ -454,6 +456,7 @@ TreeNode<DataType>::TreeNode(SharedPointer<TreeNode<DataType>> small, SharedPoin
     middleOne->Parent = this;
     middleTwo->Parent = this;
     big->Parent = this;
+    Rank = small->Rank + middleOne->Rank + middleTwo->Rank + big->Rank;
 }
 
 
