@@ -12,7 +12,10 @@
 class CarDealershipManager {
 private:
     UnionFind<Agency> agencies;
+    static SharedPointer<Agency> init();
+    static SharedPointer<Agency> unionAgencies(SharedPointer<Agency> a1, SharedPointer<Agency> a2);
 public:
+    CarDealershipManager();
     StatusType AddAgency();
     StatusType SellCar(int agencyID, int typeID, int k);
     StatusType UniteAgencies(int agencyID1, int agencyID2);

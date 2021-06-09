@@ -460,31 +460,31 @@ bool BTree23<DataType>::isEmpty() {
 
 template<typename DataType>
 BTree23<DataType>::BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2) {
-    int m1 = t1->root.Rank;
-    int m2 = t2->root.Rank;
+    int m1 = t1->root->Rank;
+    int m2 = t2->root->Rank;
 
     int m = m1+m2;
     Vector<SharedPointer<TreeNode<DataType>>> nodes(2*m);
 
-    auto iter1 = t1->child;
-    auto iter2 = t2->child;
+    auto iter1 = t1->child.rawPointer();
+    auto iter2 = t2->child.rawPointer();
 
     for (int i = 0; i < m; i++) {
-        if (iter1.isEmpty()) {
-            if (iter2.isEmpty()) {
+        if (iter1 == nullptr) {
+            if (iter2 == nullptr) {
                 break;
             }
 
-            nodes.add(new TreeNode<DataType>(iter2->Value));
+            nodes.add(SharedPointer<TreeNode<DataType>>(new TreeNode<DataType>(iter2->Value)));
             iter2 = iter2->Next;
         }
 
-        if (iter2.isEmpty() || iter1->Value < iter2->Value) {
-            nodes.add(new TreeNode<DataType>(iter1->Value));
+        if (iter2 == nullptr || iter1->Value < iter2->Value) {
+            nodes.add(SharedPointer<TreeNode<DataType>>((new TreeNode<DataType>(iter1->Value))));
             iter1 = iter1->Next;
         }
         else {
-            nodes.add(new TreeNode<DataType>(iter2->Value));
+            nodes.add(SharedPointer<TreeNode<DataType>>(new TreeNode<DataType>(iter2->Value)));
             iter2 = iter2->Next;
         }
 
