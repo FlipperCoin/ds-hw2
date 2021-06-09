@@ -10,7 +10,7 @@
 
 template<typename T>
 struct Set {
-    SetNode<T>* root;
+    SharedPointer<SetNode<T>> root;
     int size = 0;
     SharedPointer<T> value;
 };
