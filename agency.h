@@ -10,8 +10,8 @@
 #include "sells_node.h"
 
 struct Agency {
-    BTree23<CarNode> typesTree = BTree23<CarNode>();
-    BTree23<SellsNode> sellsTree = BTree23<SellsNode>();
+    SharedPointer<BTree23<CarNode>> typesTree = SharedPointer<BTree23<CarNode>>();
+    SharedPointer<BTree23<SellsNode>> sellsTree = SharedPointer<BTree23<SellsNode>>();
 };
 
 #endif //DS_HW2_AGENCY_H
