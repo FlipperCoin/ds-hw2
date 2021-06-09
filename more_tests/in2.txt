@@ -1,0 +1,9 @@
+Init
+SellCar 0 1 1
+SellCar 1 2 2
+SellCar 1 -1 3
+SellCar 2 3 3
+SellCar 2 3 3
+SellCar 2 3 3
+SellCar 2 3 3
+Quit

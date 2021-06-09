@@ -1,0 +1,256 @@
+Init
+AddAgency
+SellCar 0 -5 2
+SellCar 0 -5 2
+SellCar 0 -5 2
+SellCar 0 -5 2
+SellCar 0 -5 2
+AddAgency
+SellCar 1 -4 3
+SellCar 1 -4 3
+SellCar 1 -3 2
+SellCar 1 -3 3
+SellCar 1 -2 12
+AddAgency
+SellCar 2 -1 5
+SellCar 2 -1 4
+SellCar 2 -1 3
+SellCar 2 -1 2
+SellCar 2 -1 1
+SellCar 2 -1 0
+SellCar 2 0 3
+SellCar 2 0 2
+SellCar 2 0 2
+SellCar 2 0 7
+AddAgency
+SellCar 3 1 3
+SellCar 3 2 9
+SellCar 3 3 5
+GetIthSoldType 0 0
+GetIthSoldType 0 1
+GetIthSoldType 1 0
+GetIthSoldType 1 1
+GetIthSoldType 1 2
+GetIthSoldType 1 3
+GetIthSoldType 2 0
+GetIthSoldType 2 1
+GetIthSoldType 2 2
+GetIthSoldType 3 0
+GetIthSoldType 3 1
+GetIthSoldType 3 2
+GetIthSoldType 3 3
+GetIthSoldType 3 -5
+UniteAgencies 0 -2
+UniteAgencies -1 -2
+UniteAgencies 5 6
+UniteAgencies 7 8
+UniteAgencies 4 3
+UniteAgencies 0 3
+UniteAgencies 1 2
+GetIthSoldType 0 0
+GetIthSoldType 0 1
+GetIthSoldType 0 2
+GetIthSoldType 0 3
+GetIthSoldType 0 4
+GetIthSoldType 0 5
+GetIthSoldType 1 0
+GetIthSoldType 1 1
+GetIthSoldType 1 2
+GetIthSoldType 1 3
+GetIthSoldType 1 4
+GetIthSoldType 1 5
+GetIthSoldType 2 0
+GetIthSoldType 2 1
+GetIthSoldType 2 2
+GetIthSoldType 2 3
+GetIthSoldType 2 4
+GetIthSoldType 2 5
+UniteAgencies 2 2
+UniteAgencies 3 3
+UniteAgencies 0 0
+UniteAgencies 1 1
+GetIthSoldType 2 0
+GetIthSoldType 2 1
+GetIthSoldType 2 2
+GetIthSoldType 2 3
+GetIthSoldType 2 4
+GetIthSoldType 2 5
+AddAgency
+SellCar 4 4 5
+SellCar 4 4 5
+SellCar 4 4 5
+SellCar 4 5 26
+SellCar 4 6 7
+SellCar 4 7 12
+AddAgency
+SellCar 5 8 15
+SellCar 5 9 1
+SellCar 5 10 1
+SellCar 5 10 1
+SellCar 5 10 1
+AddAgency
+SellCar 6 11 1
+SellCar 6 11 1
+SellCar 6 11 15
+SellCar 6 12 5
+AddAgency
+SellCar 7 13 7
+SellCar 7 14 2
+SellCar 7 15 26
+UniteAgencies 4 5
+UniteAgencies 6 7
+UniteAgencies 6 8
+UniteAgencies -6 8
+UniteAgencies 6 -8
+GetIthSoldType 5 0
+GetIthSoldType 5 1
+GetIthSoldType 5 2
+GetIthSoldType 5 3
+GetIthSoldType 5 4
+GetIthSoldType 5 5
+GetIthSoldType 5 6
+GetIthSoldType 5 7
+GetIthSoldType 5 8
+GetIthSoldType 4 0
+GetIthSoldType 4 1
+GetIthSoldType 4 2
+GetIthSoldType 4 3
+GetIthSoldType 4 4
+GetIthSoldType 4 5
+GetIthSoldType 4 6
+GetIthSoldType 4 7
+GetIthSoldType 4 8
+GetIthSoldType 7 0
+GetIthSoldType 7 1
+GetIthSoldType 7 2
+GetIthSoldType 7 3
+GetIthSoldType 7 4
+GetIthSoldType 7 5
+GetIthSoldType 7 6
+GetIthSoldType 7 7
+GetIthSoldType 7 -8
+UniteAgencies 4 6
+GetIthSoldType 4 0
+GetIthSoldType 4 1
+GetIthSoldType 4 2
+GetIthSoldType 4 3
+GetIthSoldType 4 4
+GetIthSoldType 4 5
+GetIthSoldType 4 6
+GetIthSoldType 4 7
+GetIthSoldType 4 8
+GetIthSoldType 4 9
+GetIthSoldType 4 10
+GetIthSoldType 4 11
+GetIthSoldType 4 12
+SellCar 4 4 2
+SellCar 4 7 2
+SellCar 5 9 3
+SellCar 6 16 7
+GetIthSoldType 7 0
+GetIthSoldType 7 1
+GetIthSoldType 7 2
+GetIthSoldType 7 3
+GetIthSoldType 7 4
+GetIthSoldType 7 5
+GetIthSoldType 7 6
+GetIthSoldType 7 7
+GetIthSoldType 7 8
+GetIthSoldType 7 9
+GetIthSoldType 7 10
+GetIthSoldType 7 11
+GetIthSoldType 7 12
+UniteAgencies 0 2
+UniteAgencies 8 0
+GetIthSoldType 2 0
+GetIthSoldType 2 1
+GetIthSoldType 2 2
+GetIthSoldType 2 3
+GetIthSoldType 2 4
+GetIthSoldType 2 5
+GetIthSoldType 2 6
+GetIthSoldType 2 7
+GetIthSoldType 2 8
+GetIthSoldType 2 9
+GetIthSoldType 2 955
+GetIthSoldType 3 0
+GetIthSoldType 3 1
+GetIthSoldType 3 2
+GetIthSoldType 3 3
+GetIthSoldType 3 4
+GetIthSoldType 3 5
+GetIthSoldType 3 6
+GetIthSoldType 3 7
+GetIthSoldType 3 8
+GetIthSoldType -3 8
+GetIthSoldType 3 -8
+UniteAgencies 0 4
+GetIthSoldType 6 0
+GetIthSoldType 6 1
+GetIthSoldType 6 2
+GetIthSoldType 6 3
+GetIthSoldType 6 4
+GetIthSoldType 6 5
+GetIthSoldType 6 6
+GetIthSoldType 6 7
+GetIthSoldType 6 8
+GetIthSoldType 6 9
+GetIthSoldType 6 10
+GetIthSoldType 6 11
+GetIthSoldType 6 12
+GetIthSoldType 6 13
+GetIthSoldType 6 14
+GetIthSoldType 6 15
+GetIthSoldType 6 16
+GetIthSoldType 6 17
+GetIthSoldType 6 18
+GetIthSoldType 6 19
+GetIthSoldType 6 20
+GetIthSoldType 6 21
+GetIthSoldType 6 22
+SellCar 0 5 1
+GetIthSoldType 6 0
+GetIthSoldType 6 1
+GetIthSoldType 6 2
+GetIthSoldType 6 3
+GetIthSoldType 6 4
+GetIthSoldType 6 5
+GetIthSoldType 6 6
+GetIthSoldType 6 7
+GetIthSoldType 6 8
+GetIthSoldType 6 9
+GetIthSoldType 6 10
+GetIthSoldType 6 11
+GetIthSoldType 6 12
+GetIthSoldType 6 13
+GetIthSoldType 6 14
+GetIthSoldType 6 15
+GetIthSoldType 6 16
+GetIthSoldType 6 17
+GetIthSoldType 6 18
+GetIthSoldType 6 19
+GetIthSoldType 6 20
+GetIthSoldType 6 21
+GetIthSoldType 2 0
+GetIthSoldType 2 1
+GetIthSoldType 2 2
+GetIthSoldType 2 3
+GetIthSoldType 2 4
+GetIthSoldType 2 5
+GetIthSoldType 2 6
+GetIthSoldType 2 7
+GetIthSoldType 2 8
+GetIthSoldType 2 9
+GetIthSoldType 2 10
+GetIthSoldType 2 11
+GetIthSoldType 2 12
+GetIthSoldType 2 13
+GetIthSoldType 2 14
+GetIthSoldType 2 15
+GetIthSoldType 2 16
+GetIthSoldType 2 17
+GetIthSoldType 2 18
+GetIthSoldType 2 19
+GetIthSoldType 2 20
+GetIthSoldType 2 21
+Quit

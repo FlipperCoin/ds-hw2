@@ -1,0 +1,9 @@
+Init
+UniteAgencies 0 1 
+UniteAgencies 1 2 
+UniteAgencies 1 2
+UniteAgencies 2 3 
+UniteAgencies 2 3 
+UniteAgencies 2 3 
+UniteAgencies 2 3 
+Quit

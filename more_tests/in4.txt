@@ -1,0 +1,9 @@
+Init
+GetIthSoldType 0 1 
+GetIthSoldType 1 2 
+GetIthSoldType 1 2
+GetIthSoldType 2 3 
+GetIthSoldType 2 3 
+GetIthSoldType 2 3 
+GetIthSoldType 2 3 
+Quit
