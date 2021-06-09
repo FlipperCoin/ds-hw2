@@ -8,6 +8,7 @@ set(MySourcesList library2.h
         tree_node.h
         library.cpp
         library2.h
+        set_node.h
         CarDealershipManager.cpp
         CarDealershipManager.h union_find.h agency.h car_node.h)
 

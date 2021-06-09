@@ -6,16 +6,13 @@
 #define DS_HW2_SET_H
 
 #include "shared_pointer.h"
-#include "node.h"
+#include "set_node.h"
 
 template<typename T>
 struct Set {
-    SharedPointer<Node<T>> root = SharedPointer<Node<T>>(0);
+    SetNode<T>* root;
     int size = 0;
+    SharedPointer<T> value;
 };
-
-#include "vector.h"
-#include "shared_pointer.h"
-#include "node.h"
 
 #endif //DS_HW2_SET_H
