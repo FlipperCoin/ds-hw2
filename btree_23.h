@@ -106,6 +106,7 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::insert(DataType value) {
     if (root.isEmpty()) {
         root = SharedPointer<TreeNode<DataType>>(new TreeNode<DataType>(value)); // add new tree node
         child = root;
+        root->Rank = 1;
         return root;
     }
 
@@ -260,6 +261,7 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::find(DataType value,
     // if find should update on path the smallest value in the node's subtrees
     if (updateOnPath && (value < node->Value)) {
         node->Value = value;
+        node->Rank += 1;
     }
 
     // recall find on correct subtree
