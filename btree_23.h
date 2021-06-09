@@ -50,6 +50,12 @@ public:
      * @param n amount of leaves wanted
      */
     explicit BTree23(int n);
+    /**
+     * Joins 2 trees into a single tree in O(m1+m2)
+     * @param t1 tree with m1 leaves
+     * @param t2 tree with m2 leaves
+     */
+    BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2);
 
     /**
      * Insert the given value to the tree as a leaf in O(log(n))
@@ -448,6 +454,11 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::getSmallestChild() const {
 template<typename DataType>
 bool BTree23<DataType>::isEmpty() {
     return root.isEmpty();
+}
+
+template<typename DataType>
+BTree23<DataType>::BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2) {
+
 }
 
 #endif //DS_EX1_TREE23_H

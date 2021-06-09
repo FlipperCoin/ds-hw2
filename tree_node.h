@@ -20,7 +20,12 @@ using std::endl;
 template <typename DataType>
 struct TreeNode {
     /**
-     * TreeNode keeps truck of its number of sons
+     * Rank of node, meaning total number of leaves under it
+     */
+    int Rank;
+
+    /**
+     * TreeNode keeps truck of its number of direct sons
      */
     int Sons;
 

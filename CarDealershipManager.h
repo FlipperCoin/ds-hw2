@@ -6,8 +6,12 @@
 #define DS_HW2_CARDEALERSHIPMANAGER_H
 
 #include "library2.h"
+#include "union_find.h"
+#include "agency.h"
 
 class CarDealershipManager {
+private:
+    UnionFind<Agency> agencies;
 public:
     StatusType AddAgency();
     StatusType SellCar(int agencyID, int typeID, int k);

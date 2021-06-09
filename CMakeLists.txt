@@ -9,6 +9,6 @@ set(MySourcesList library2.h
         library.cpp
         library2.h
         CarDealershipManager.cpp
-        CarDealershipManager.h)
+        CarDealershipManager.h union_find.h agency.h car_node.h)
 
 add_executable(main_tests main2.cpp ${MySourcesList})
