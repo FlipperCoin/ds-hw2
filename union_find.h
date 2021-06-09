@@ -84,7 +84,7 @@ Set<T> UnionFind<T>::unionSets(Set<T> s1, Set<T> s2) {
     big.value = unionValues(big.value, small.value);
 
     sets--;
-    return {.root=big,.size=big.size,.value=big.value};
+    return big;
 }
 
 template<typename T>
