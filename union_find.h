@@ -28,24 +28,28 @@ public:
 
 template<typename T>
 Set<T> UnionFind<T>::makeSet() {
-    auto setNode = SharedPointer<SetNode<T>>(
-            new SetNode<T>(
-                    { .value=init(),
-                      .parent=SharedPointer<T>(),
-                      .size=1
-                    }
-            ));
+    auto setNode = SharedPointer<SetNode<T>>(new SetNode<T>);
+    setNode->value = init();
+    setNode->parent = SharedPointer<SetNode<T>>();
+    setNode->size = 1;
 
     items.add(setNode);
-
     sets++;
-    return {.value=setNode->value,.size=setNode->size,.root=setNode};
+    Set<T> s;
+    s.value=setNode->value;
+    s.size=setNode->size;
+    s.root=setNode;
+    return s;
 }
 
 template<typename T>
 Set<T> UnionFind<T>::find(int i) {
-    if (i >= items.getCount())
-        return {.value=SharedPointer<T>(),.root=SharedPointer<T>()};
+    if (i >= items.getCount()) {
+        Set<T> s;
+        s.root = SharedPointer<SetNode<T>>();
+        s.value = SharedPointer<T>();
+        return s;
+    }
 
     SharedPointer<SetNode<T>> n = items[i];
 
@@ -62,7 +66,11 @@ Set<T> UnionFind<T>::find(int i) {
         n = tmp;
     }
 
-    return {.root=r,.size=r->size,.value=r->value};
+    Set<T> s;
+    s.root = r;
+    s.size = r->size;
+    s.value = r->value;
+    return s;
 }
 
 template<typename T>
