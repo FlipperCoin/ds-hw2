@@ -1,0 +1,9 @@
+init done.
+GetIthSoldType: FAILURE
+GetIthSoldType: FAILURE
+GetIthSoldType: FAILURE
+GetIthSoldType: FAILURE
+GetIthSoldType: FAILURE
+GetIthSoldType: FAILURE
+GetIthSoldType: FAILURE
+quit done.

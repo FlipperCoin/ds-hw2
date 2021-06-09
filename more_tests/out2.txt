@@ -1,0 +1,9 @@
+init done.
+SellCar: FAILURE
+SellCar: FAILURE
+SellCar: FAILURE
+SellCar: FAILURE
+SellCar: FAILURE
+SellCar: FAILURE
+SellCar: FAILURE
+quit done.

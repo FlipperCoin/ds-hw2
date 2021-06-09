@@ -1,0 +1,27 @@
+Init
+GetIthSoldType 0 0
+SellCar 1 0 1
+AddAgency
+AddAgency
+AddAgency
+AddAgency
+AddAgency
+SellCar 0 0 1
+UniteAgencies 0 1
+UniteAgencies 1 2
+UniteAgencies 2 3 
+UniteAgencies 3 4
+UniteAgencies 0 0
+UniteAgencies 2 4
+UniteAgencies -5 0
+SellCar 1 0 1
+SellCar 2 1 1
+SellCar 3 2 1
+SellCar 4 3 1
+GetIthSoldType 0 7
+GetIthSoldType 0 0
+GetIthSoldType 1 7
+GetIthSoldType 0 7
+GetIthSoldType 0 1
+SellCar 15 0 1
+Quit
