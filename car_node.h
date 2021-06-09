@@ -5,9 +5,11 @@
 #ifndef DS_HW2_CAR_NODE_H
 #define DS_HW2_CAR_NODE_H
 
+#include "shared_pointer.h"
+#include "car_data.h"
+
 struct CarNode {
-    int typeID;
-    int sells;
+    SharedPointer<CarData> carData;
 };
 
 #endif //DS_HW2_CAR_NODE_H
