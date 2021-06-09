@@ -36,6 +36,8 @@ private:
     void createRow(Vector<SharedPointer<TreeNode<DataType>>> &nodes, int k, int r) const;
     static bool compare(const TreeNode<DataType>& node1, const TreeNode<DataType>& node2);
     void link(SharedPointer<TreeNode<DataType>> node);
+    void copy(SharedPointer<BTree23<DataType>> t);
+    void copy(SharedPointer<BTree23<DataType>> t1,SharedPointer<BTree23<DataType>> t2);
 
 public:
     /**
@@ -466,8 +468,74 @@ bool BTree23<DataType>::isEmpty() {
 
 template<typename DataType>
 BTree23<DataType>::BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2) {
-    int m1 = t1->root->isLeaf() ? 1 : t1->root->Rank;
-    int m2 = t2->root->isLeaf() ? 1 : t2->root->Rank;
+    auto r1 = t1->root;
+    auto r2 = t2->root;
+
+    if (r1.isEmpty()) copy(t2);
+    else if (r2.isEmpty()) copy(t1);
+    else copy(t1,t2);
+}
+
+template<typename DataType>
+SharedPointer<TreeNode<DataType>> BTree23<DataType>::findByRank(int i, SharedPointer<TreeNode<DataType>> current) const {
+    if(current.isEmpty()) current = root;
+
+    if (root->isLeaf() && i > 0) return SharedPointer<TreeNode<DataType>>();
+
+    if(current->isLeaf()){
+        return current;
+    }
+
+    for (int j = 0; j < current->Sons; ++j) {
+        if(i < current->Children[j]->Rank){
+            return findByRank(i, current->Children[j]);
+        }
+        else if( j != current->Sons-1){
+            i -= current->Children[j]->Rank;
+        }
+        else{
+            return SharedPointer<TreeNode<DataType>>();
+        }
+    }
+}
+
+template<typename DataType>
+void BTree23<DataType>::copy(SharedPointer<BTree23<DataType>> t) {
+    if (t.isEmpty() || t->root.isEmpty()) return;
+
+    int m = t->root->Rank;
+    Vector<SharedPointer<TreeNode<DataType>>> nodes(2*m);
+
+    auto iter = t->child.rawPointer();
+    for (int i = 0; i < m; i++) {
+        nodes.add(SharedPointer<TreeNode<DataType>>((new TreeNode<DataType>(iter->Value))));
+        iter = iter->Next;
+
+        if (i != 0) {
+            nodes[i-1]->Next = nodes[i].rawPointer();
+            nodes[i]->Previous = nodes[i-1].rawPointer();
+        }
+    }
+
+    child = nodes[0];
+
+    // loop row by row, from the bottom up
+    // each time creating the row's parents and linking them
+    int k = m;
+    int r = 0;
+    while (r+k - r > 1) {
+        createRow(nodes, k, r);
+        r += k;
+        k /= 2; // rounding down is a wanted behaviour, in case of 3 sons in the end
+    }
+
+    root = nodes[r];
+}
+
+template<typename DataType>
+void BTree23<DataType>::copy(SharedPointer<BTree23<DataType>> t1, SharedPointer<BTree23<DataType>> t2) {
+    int m1 = t1->root->Rank;
+    int m2 = t2->root->Rank;
 
     int m = m1+m2;
     Vector<SharedPointer<TreeNode<DataType>>> nodes(2*m);
@@ -512,29 +580,6 @@ BTree23<DataType>::BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2)
     }
 
     root = nodes[r];
-}
-
-template<typename DataType>
-SharedPointer<TreeNode<DataType>> BTree23<DataType>::findByRank(int i, SharedPointer<TreeNode<DataType>> current) const {
-    if(current.isEmpty()) current = root;
-
-    if (root->isLeaf() && i > 0) return SharedPointer<TreeNode<DataType>>();
-
-    if(current->isLeaf()){
-        return current;
-    }
-
-    for (int j = 0; j < current->Sons; ++j) {
-        if(i < current->Children[j]->Rank){
-            return findByRank(i, current->Children[j]);
-        }
-        else if( j != current->Sons-1){
-            i -= current->Children[j]->Rank;
-        }
-        else{
-            return SharedPointer<TreeNode<DataType>>();
-        }
-    }
 }
 
 #endif //DS_EX1_TREE23_H
