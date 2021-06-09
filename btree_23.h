@@ -82,6 +82,11 @@ public:
                                            bool updateOnPath = false) const;
 
     /**
+     * @return the node referred by i
+     */
+    SharedPointer<TreeNode<DataType>> findByRank(int i, SharedPointer<TreeNode<DataType>> current = SharedPointer<TreeNode<DataType>>()) const;
+
+    /**
      * @return is the tree empty (without any leaves)
      */
     bool isEmpty();
@@ -106,7 +111,6 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::insert(DataType value) {
     if (root.isEmpty()) {
         root = SharedPointer<TreeNode<DataType>>(new TreeNode<DataType>(value)); // add new tree node
         child = root;
-        root->Rank = 1;
         return root;
     }
 
@@ -118,6 +122,7 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::insert(DataType value) {
         SharedPointer<TreeNode<DataType>> new_node(new TreeNode<DataType>(value, new_root.rawPointer()));
         root->Parent = new_root.rawPointer();
         new_root->Sons = 2;
+
         if(value < root->Value){
             new_root->Children[0] = new_node;
             new_root->Children[1] = root;
@@ -136,6 +141,7 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::insert(DataType value) {
         }
         new_root->Value = new_root->Children[0]->Value;
         root = new_root;
+        root->Rank = 2;
         child = root->Children[0];
         return new_node;
     }
@@ -147,7 +153,7 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::insert(DataType value) {
     // else - insert new node in father
     SharedPointer<TreeNode<DataType>> new_node =
             SharedPointer<TreeNode<DataType>>(new TreeNode<DataType>(value, place.rawPointer()));
-    place->insertValue(new_node);
+    place->insertValue(new_node); // also ups the rank in 1
     if (value < child->Value) child = new_node;
     if(place->Sons != 3) fix_insert(place);
     return new_node;
@@ -507,6 +513,26 @@ BTree23<DataType>::BTree23(SharedPointer<BTree23> t1, SharedPointer<BTree23> t2)
     }
 
     root = nodes[r];
+}
+
+template<typename DataType>
+SharedPointer<TreeNode<DataType>> BTree23<DataType>::findByRank(int i, SharedPointer<TreeNode<DataType>> current) const {
+    if()
+    if(current->Sons == 0){
+
+    }
+    for (int j = 0; j < current->Sons; ++j) {
+        if(i < current->Children[j]->Rank){
+            findByRank(i, current->Children[j]);
+        }
+        else if( j != current->Sons-1){
+            i -= current->Children[j]->Rank;
+        }
+        else{
+            return SharedPointer<TreeNode<DataType>>();
+        }
+    }
+
 }
 
 #endif //DS_EX1_TREE23_H

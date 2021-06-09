@@ -246,6 +246,10 @@ void TreeNode<DataType>::removeSon(DataType value) {
         }
     }
     this->Sons--;
+    this->Rank = 0;
+    for (int i = 0; i < Sons; ++i) {
+        this->Rank += this->Children[i]->Rank;
+    }
 }
 
 template<typename DataType>
@@ -317,6 +321,7 @@ void TreeNode<DataType>::insertValue(SharedPointer<TreeNode<DataType>> new_node)
     }
     Sons++;
     new_node->Parent = this;
+    Parent->Rank += 1;
 }
 
 template<typename DataType>
@@ -341,6 +346,7 @@ void TreeNode<DataType>::borrow(int id, int other) {
         this->Parent->Children[other]->Children[0] = this->Parent->Children[other]->Children[1];
         this->Parent->Children[other]->Children[1] = this->Parent->Children[other]->Children[2];
         this->Parent->Children[other]->Value = this->Parent->Children[other]->Children[0]->Value;
+
     } else { // borrowing from left hand side
         // fixing indicators
         this->Indices[0] = this->Parent->Indices[other];
@@ -351,9 +357,12 @@ void TreeNode<DataType>::borrow(int id, int other) {
         this->Children[0] = this->Parent->Children[other]->Children[2];
         this->Children[0]->Parent = this;
         this->Value = this->Children[0]->Value;
+
         // fixing the other node
         this->Parent->Children[other]->Sons = 2;
     }
+    this->Parent->Children[other]->Rank = this->Parent->Children[other]->Children[0]->Rank + this->Parent->Children[other]->Children[1]->Rank;
+    this->Rank = this->Children[0]->Rank + this->Children[1]->Rank;
     this->Sons = 2;
 }
 
@@ -387,6 +396,7 @@ void TreeNode<DataType>::combine(int id, int other) {
         this->Value = this->Children[0]->Value;
     }
     Sons = 3;
+    Rank = this->Children[0]->Rank + this->Children[1]->Rank + this->Children[2]->Rank;
     //delete other node
     this->Parent->removeSon(this->Parent->Children[other]->Value);
 }
