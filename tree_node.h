@@ -321,7 +321,6 @@ void TreeNode<DataType>::insertValue(SharedPointer<TreeNode<DataType>> new_node)
     }
     Sons++;
     new_node->Parent = this;
-    Parent->Rank += 1;
 }
 
 template<typename DataType>

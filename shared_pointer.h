@@ -51,11 +51,11 @@ public:
         return *this;
     }
 
-    bool operator==(const T* other) {
+    bool operator==(const T* other) const {
         return this->pointer == other;
     }
 
-    bool operator==(const SharedPointer<T>& other) {
+    bool operator==(const SharedPointer<T>& other) const {
         return this->pointer == other.pointer;
     }
 

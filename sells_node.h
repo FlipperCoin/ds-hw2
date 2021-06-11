@@ -7,12 +7,14 @@
 
 #include "car_data.h"
 #include "shared_pointer.h"
+#include <string>
 
 struct SellsNode {
-    SharedPointer<CarData> carData;
+    CarData carData;
 
     bool operator<(const SellsNode& other) const;
     bool operator>=(const SellsNode& other) const;
     bool operator==(const SellsNode& other) const;
+    std::string str() const;
 };
 #endif //DS_HW2_SELLS_NODE_H

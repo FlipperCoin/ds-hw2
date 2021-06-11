@@ -8,13 +8,15 @@
 #include "shared_pointer.h"
 #include "car_data.h"
 
+#include <string>
+
 struct CarNode {
-    SharedPointer<CarData> carData;
+    CarData carData;
 
     bool operator<(const CarNode& other) const;
     bool operator>=(const CarNode& other) const;
     bool operator==(const CarNode& other) const;
+    std::string str() const;
 };
-
 
 #endif //DS_HW2_CAR_NODE_H

@@ -13,6 +13,13 @@ struct Set {
     SharedPointer<SetNode<T>> root;
     int size = 0;
     SharedPointer<T> value;
+
+    bool operator==(const Set& other) const;
 };
+
+template<typename T>
+bool Set<T>::operator==(const Set &other) const {
+    return root == other.root;
+}
 
 #endif //DS_HW2_SET_H

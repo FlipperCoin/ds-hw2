@@ -3,9 +3,10 @@
 //
 
 #include "car_node.h"
+#include <sstream>
 
 bool CarNode::operator<(const CarNode &other) const {
-    return carData->typeID < other.carData->typeID;
+    return carData.typeID < other.carData.typeID;
 }
 
 bool CarNode::operator>=(const CarNode &other) const {
@@ -13,5 +14,11 @@ bool CarNode::operator>=(const CarNode &other) const {
 }
 
 bool CarNode::operator==(const CarNode &other) const {
-    return carData->typeID == other.carData->typeID;
+    return carData.typeID == other.carData.typeID;
+}
+
+std::string CarNode::str() const {
+    std::stringstream s;
+    s << "(" << carData.typeID << "," << carData.sells << ")";
+    return s.str();
 }

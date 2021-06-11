@@ -76,12 +76,14 @@ public:
      * Search for a leaf containing the given value in O(log(n))
      * @param value the value to search for
      * @param node node to start the search from, defaults to the root of the tree
-     * @param updateOnPath should the method update on its path the minimum child in each node
+     * @param insertUpdateOnPath should the method update on its path the minimum child in each node and inc ranks by 1
+     * @param removeUpdateOnPath should the method lower the ranks by 1 of each node in its path
      * @return the leaf if found, last parent on the path otherwise
      */
     SharedPointer<TreeNode<DataType>> find(DataType value,
                                            SharedPointer<TreeNode<DataType>> node = SharedPointer<TreeNode<DataType>>(),
-                                           bool updateOnPath = false) const;
+                                           bool insertUpdateOnPath = false,
+                                           bool removeUpdateOnPath = false) const;
 
     /**
      * @return the node referred by i
@@ -193,6 +195,9 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::remove(DataType value) {
         return root;
     }
 
+    // dec rank by 1
+    find(value, root,false,true);
+
     auto p = node->getSharedParent();
     if (p.isEmpty()) p = root;
 
@@ -244,7 +249,8 @@ void BTree23<DataType>::fix_remove(SharedPointer<TreeNode<DataType>> v_node) {
 template<typename DataType>
 SharedPointer<TreeNode<DataType>> BTree23<DataType>::find(DataType value,
                                                           SharedPointer<TreeNode<DataType>> node,
-                                                          bool updateOnPath) const {
+                                                          bool insertUpdateOnPath,
+                                                          bool removeUpdateOnPath) const {
     if (root.isEmpty()) {
         return root; // returning null
     }
@@ -266,10 +272,14 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::find(DataType value,
         return node;
     }
 
-    // if find should update on path the smallest value in the node's subtrees
-    if (updateOnPath && (value < node->Value)) {
-        node->Value = value;
+    // if find should update on path the smallest value in the node's subtrees & inc rank by 1
+    if (insertUpdateOnPath) {
         node->Rank += 1;
+        if (value < node->Value)
+            node->Value = value;
+    }
+    if (removeUpdateOnPath) {
+        node->Rank -= 1;
     }
 
     // recall find on correct subtree
@@ -279,7 +289,7 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::find(DataType value,
         if (!(value < node->Indices[i])) {
             if (i == node->Sons-2) {
                 // definitely larger equals node->Indices[node->Sons-1])
-                found = find(value, node->Children[i+1], updateOnPath);
+                found = find(value, node->Children[i+1], insertUpdateOnPath, removeUpdateOnPath);
             }
 
             // if not the last, continue in the loop
@@ -287,7 +297,7 @@ SharedPointer<TreeNode<DataType>> BTree23<DataType>::find(DataType value,
         };
 
         // value is in this part, try find and break
-        found = find(value, node->Children[i], updateOnPath);
+        found = find(value, node->Children[i], insertUpdateOnPath, removeUpdateOnPath);
         break;
     }
 
@@ -307,7 +317,12 @@ void BTree23<DataType>::printTree() const {
 }
 template<typename DataType>
 void BTree23<DataType>::printTree(SharedPointer<TreeNode<DataType>> node, bool is_right_most, const string& prefix) const {
-    if (isLeaf(node)) {
+    if (node.isEmpty()) {
+        cout << "[]" << endl;
+        return;
+    }
+
+    if (node->isLeaf()) {
         cout << node->Value.str() << endl;
         return;
     }
@@ -480,7 +495,7 @@ template<typename DataType>
 SharedPointer<TreeNode<DataType>> BTree23<DataType>::findByRank(int i, SharedPointer<TreeNode<DataType>> current) const {
     if(current.isEmpty()) current = root;
 
-    if (root->isLeaf() && i > 0) return SharedPointer<TreeNode<DataType>>();
+    if (root.isEmpty() || (root->isLeaf() && i > 0)) return SharedPointer<TreeNode<DataType>>();
 
     if(current->isLeaf()){
         return current;
